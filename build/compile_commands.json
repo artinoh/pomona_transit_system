@@ -7,6 +7,12 @@
 },
 {
   "directory": "/Users/artin/CS4350/lab4/pomona_transit_system/build",
+  "command": "/usr/bin/clang++  -isystem /opt/homebrew/include -g -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -o CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o -c /Users/artin/CS4350/lab4/pomona_transit_system/utils/src/DatabaseAccess.cpp",
+  "file": "/Users/artin/CS4350/lab4/pomona_transit_system/utils/src/DatabaseAccess.cpp",
+  "output": "CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o"
+},
+{
+  "directory": "/Users/artin/CS4350/lab4/pomona_transit_system/build",
   "command": "/usr/bin/clang++  -isystem /opt/homebrew/include -g -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -o CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o -c /Users/artin/CS4350/lab4/pomona_transit_system/transit_menu/src/transit_menu.cpp",
   "file": "/Users/artin/CS4350/lab4/pomona_transit_system/transit_menu/src/transit_menu.cpp",
   "output": "CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o"

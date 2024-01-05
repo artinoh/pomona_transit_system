@@ -177,6 +177,30 @@ transit_menu/src/transit_menu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pomona_transit_system.dir/build.make CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.s
 .PHONY : transit_menu/src/transit_menu.cpp.s
 
+utils/src/DatabaseAccess.o: utils/src/DatabaseAccess.cpp.o
+.PHONY : utils/src/DatabaseAccess.o
+
+# target to build an object file
+utils/src/DatabaseAccess.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pomona_transit_system.dir/build.make CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o
+.PHONY : utils/src/DatabaseAccess.cpp.o
+
+utils/src/DatabaseAccess.i: utils/src/DatabaseAccess.cpp.i
+.PHONY : utils/src/DatabaseAccess.i
+
+# target to preprocess a source file
+utils/src/DatabaseAccess.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pomona_transit_system.dir/build.make CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.i
+.PHONY : utils/src/DatabaseAccess.cpp.i
+
+utils/src/DatabaseAccess.s: utils/src/DatabaseAccess.cpp.s
+.PHONY : utils/src/DatabaseAccess.s
+
+# target to generate assembly for a file
+utils/src/DatabaseAccess.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pomona_transit_system.dir/build.make CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.s
+.PHONY : utils/src/DatabaseAccess.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +216,9 @@ help:
 	@echo "... transit_menu/src/transit_menu.o"
 	@echo "... transit_menu/src/transit_menu.i"
 	@echo "... transit_menu/src/transit_menu.s"
+	@echo "... utils/src/DatabaseAccess.o"
+	@echo "... utils/src/DatabaseAccess.i"
+	@echo "... utils/src/DatabaseAccess.s"
 .PHONY : help
 
 

@@ -83,10 +83,24 @@ CMakeFiles/pomona_transit_system.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/pomona_transit_system.dir/main.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/artin/CS4350/lab4/pomona_transit_system/main.cpp -o CMakeFiles/pomona_transit_system.dir/main.cpp.s
 
+CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o: CMakeFiles/pomona_transit_system.dir/flags.make
+CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o: /Users/artin/CS4350/lab4/pomona_transit_system/utils/src/DatabaseAccess.cpp
+CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o: CMakeFiles/pomona_transit_system.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/artin/CS4350/lab4/pomona_transit_system/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o -MF CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o.d -o CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o -c /Users/artin/CS4350/lab4/pomona_transit_system/utils/src/DatabaseAccess.cpp
+
+CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/artin/CS4350/lab4/pomona_transit_system/utils/src/DatabaseAccess.cpp > CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.i
+
+CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/artin/CS4350/lab4/pomona_transit_system/utils/src/DatabaseAccess.cpp -o CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.s
+
 CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o: CMakeFiles/pomona_transit_system.dir/flags.make
 CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o: /Users/artin/CS4350/lab4/pomona_transit_system/transit_menu/src/transit_menu.cpp
 CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o: CMakeFiles/pomona_transit_system.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/artin/CS4350/lab4/pomona_transit_system/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/artin/CS4350/lab4/pomona_transit_system/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o -MF CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o.d -o CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o -c /Users/artin/CS4350/lab4/pomona_transit_system/transit_menu/src/transit_menu.cpp
 
 CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.i: cmake_force
@@ -100,17 +114,19 @@ CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.s: cmake_
 # Object files for target pomona_transit_system
 pomona_transit_system_OBJECTS = \
 "CMakeFiles/pomona_transit_system.dir/main.cpp.o" \
+"CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o" \
 "CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o"
 
 # External object files for target pomona_transit_system
 pomona_transit_system_EXTERNAL_OBJECTS =
 
 pomona_transit_system: CMakeFiles/pomona_transit_system.dir/main.cpp.o
+pomona_transit_system: CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o
 pomona_transit_system: CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o
 pomona_transit_system: CMakeFiles/pomona_transit_system.dir/build.make
 pomona_transit_system: /opt/homebrew/lib/libodbc.dylib
 pomona_transit_system: CMakeFiles/pomona_transit_system.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/artin/CS4350/lab4/pomona_transit_system/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable pomona_transit_system"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/artin/CS4350/lab4/pomona_transit_system/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable pomona_transit_system"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pomona_transit_system.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

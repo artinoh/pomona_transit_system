@@ -12,7 +12,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(ODBC REQUIRED)
 
 
-file(GLOB UTILS utils/*.cpp utils/*.h)
+file(GLOB UTILS utils/src/*.cpp utils/*.h)
 file(GLOB TRANSIT_MENU transit_menu/src/*.cpp transit_menu/*.h)
 
 

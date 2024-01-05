@@ -1,9 +1,8 @@
 #pragma once
 
-#include "../utils/db/DatabaseAccess.h"
-#include "../utils/enums/types.h"
 #include <vector>
 #include <iostream>
+#include "../utils/DatabaseAccess.h"
 
 namespace transit 
 {

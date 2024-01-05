@@ -20,7 +20,7 @@ namespace transit::types
     };
 
 
-    std::ostream& operator<<(std::ostream& os, const MenuOption& option)
+    inline std::ostream& operator<<(std::ostream& os, const MenuOption& option)
     {
         switch (option)
         {
@@ -50,7 +50,7 @@ namespace transit::types
         Exit
     };
 
-    std::ostream& operator<<(std::ostream& os, const EditScheduleOption& option)
+    inline std::ostream& operator<<(std::ostream& os, const EditScheduleOption& option)
     {
         switch (option)
         {

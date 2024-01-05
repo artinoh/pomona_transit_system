@@ -1,5 +1,6 @@
-CMakeFiles/pomona_transit_system.dir/main.cpp.o: \
-  /Users/artin/CS4350/lab4/pomona_transit_system/main.cpp \
+CMakeFiles/pomona_transit_system.dir/utils/src/DatabaseAccess.cpp.o: \
+  /Users/artin/CS4350/lab4/pomona_transit_system/utils/src/DatabaseAccess.cpp \
+  /Users/artin/CS4350/lab4/pomona_transit_system/utils/src/../DatabaseAccess.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__assert \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__config \
@@ -772,9 +773,7 @@ CMakeFiles/pomona_transit_system.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/_types/_nl_item.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__bsd_locale_defaults.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cstdarg \
-  /Users/artin/CS4350/lab4/pomona_transit_system/transit_menu/transit_menu.h \
-  /Users/artin/CS4350/lab4/pomona_transit_system/transit_menu/../utils/DatabaseAccess.h \
   /opt/homebrew/include/sql.h /opt/homebrew/include/sqltypes.h \
   /opt/homebrew/include/unixodbc.h /opt/homebrew/include/sqlext.h \
   /opt/homebrew/include/sqlucode.h \
-  /Users/artin/CS4350/lab4/pomona_transit_system/transit_menu/../utils/types.h
+  /Users/artin/CS4350/lab4/pomona_transit_system/utils/src/../types.h
