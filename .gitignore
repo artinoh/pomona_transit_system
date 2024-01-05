@@ -1,3 +1,3 @@
-.build/
-.vcscode/
-.DS_Store
+.vscode/
+build/
+DS_Store
