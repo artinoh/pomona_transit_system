@@ -153,6 +153,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pomona_transit_system.dir/build.make CMakeFiles/pomona_transit_system.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+transit_menu/src/transit_menu.o: transit_menu/src/transit_menu.cpp.o
+.PHONY : transit_menu/src/transit_menu.o
+
+# target to build an object file
+transit_menu/src/transit_menu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pomona_transit_system.dir/build.make CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o
+.PHONY : transit_menu/src/transit_menu.cpp.o
+
+transit_menu/src/transit_menu.i: transit_menu/src/transit_menu.cpp.i
+.PHONY : transit_menu/src/transit_menu.i
+
+# target to preprocess a source file
+transit_menu/src/transit_menu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pomona_transit_system.dir/build.make CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.i
+.PHONY : transit_menu/src/transit_menu.cpp.i
+
+transit_menu/src/transit_menu.s: transit_menu/src/transit_menu.cpp.s
+.PHONY : transit_menu/src/transit_menu.s
+
+# target to generate assembly for a file
+transit_menu/src/transit_menu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pomona_transit_system.dir/build.make CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.s
+.PHONY : transit_menu/src/transit_menu.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +189,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... transit_menu/src/transit_menu.o"
+	@echo "... transit_menu/src/transit_menu.i"
+	@echo "... transit_menu/src/transit_menu.s"
 .PHONY : help
 
 

@@ -1,9 +1,10 @@
 #include <iostream>
-#include "utils/db/DatabaseAccess.h"
+#include "transit_menu/transit_menu.h"
 
 int main()
 {
-    std::cout << "Hello World!" << std::endl;
-    db::DatabaseAccess::instance().query();
+    //prime the database
+    db::DatabaseAccess::instance();
+    transit::TransitMenu menu;
     return 0;
 }

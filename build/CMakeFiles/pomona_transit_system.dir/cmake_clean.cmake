@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/pomona_transit_system.dir/main.cpp.o"
   "CMakeFiles/pomona_transit_system.dir/main.cpp.o.d"
+  "CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o"
+  "CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o.d"
   "pomona_transit_system"
   "pomona_transit_system.pdb"
 )

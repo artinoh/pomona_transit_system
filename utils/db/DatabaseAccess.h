@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <sql.h>
 #include <sqlext.h>
@@ -12,9 +14,6 @@ public:
 
     static DatabaseAccess& instance() {
         static DatabaseAccess instance;
-        if (!instance.initialized) {
-            instance.init();
-        }
         return instance;
     }
 
@@ -114,7 +113,7 @@ private:
         if (hEnv) SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
     }
 
-    DatabaseAccess() = default ;
+    DatabaseAccess() { init(); }
     DatabaseAccess(const DatabaseAccess&) = delete;
     DatabaseAccess& operator=(const DatabaseAccess&) = delete;
 

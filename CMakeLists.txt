@@ -10,14 +10,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(ODBC REQUIRED)
-# Gather all source files in the utils directory
+
+
 file(GLOB UTILS utils/*.cpp utils/*.h)
+file(GLOB TRANSIT_MENU transit_menu/src/*.cpp transit_menu/*.h)
 
-# Add the source files to the executable
-add_executable(pomona_transit_system main.cpp ${UTILS})
 
-target_link_libraries(pomona_transit_system PRIVATE ODBC::ODBC)
 
+add_executable(pomona_transit_system main.cpp ${UTILS} ${TRANSIT_MENU})
 
 
 target_link_libraries(pomona_transit_system PRIVATE ODBC::ODBC)

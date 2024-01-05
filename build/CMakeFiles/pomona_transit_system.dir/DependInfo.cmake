@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/artin/CS4350/lab4/pomona_transit_system/main.cpp" "CMakeFiles/pomona_transit_system.dir/main.cpp.o" "gcc" "CMakeFiles/pomona_transit_system.dir/main.cpp.o.d"
+  "/Users/artin/CS4350/lab4/pomona_transit_system/transit_menu/src/transit_menu.cpp" "CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o" "gcc" "CMakeFiles/pomona_transit_system.dir/transit_menu/src/transit_menu.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
