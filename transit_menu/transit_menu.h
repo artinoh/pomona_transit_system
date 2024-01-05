@@ -12,7 +12,7 @@ public:
 
     TransitMenu()
     {
-        std::cout << "TransitMenu constructor\n";
+        std::cout << "Transit Menu constructor\n";
         display_menu();
     }
 
