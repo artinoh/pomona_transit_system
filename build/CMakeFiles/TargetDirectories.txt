@@ -1,0 +1,3 @@
+/Users/artin/CS4350/lab4/pomona_transit_system/build/CMakeFiles/pomona_transit_system.dir
+/Users/artin/CS4350/lab4/pomona_transit_system/build/CMakeFiles/edit_cache.dir
+/Users/artin/CS4350/lab4/pomona_transit_system/build/CMakeFiles/rebuild_cache.dir
