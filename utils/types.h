@@ -5,14 +5,18 @@
 
 namespace transit::types
 {
+
+    using TripNumber = uint64_t;
+    using BusId = uint64_t;
+
     enum class MenuOption
     {
         None,
-        DisplayAllTripsForLocationDestinationAndDate,
+        DisplayTrips,
         EditSchedule,
         DisplayStops,
         DisplayWeeklyScheduleForDriver,
-        AddDrive,
+        AddDriver,
         AddBus,
         DeleteBus,
         RecordTripData,
@@ -25,11 +29,11 @@ namespace transit::types
         switch (option)
         {
         case MenuOption::None: os << "None"; break;
-        case MenuOption::DisplayAllTripsForLocationDestinationAndDate: os << "DisplayAllTripsForLocationDestinationAndDate"; break;
+        case MenuOption::DisplayTrips: os << "DisplayTrips"; break;
         case MenuOption::EditSchedule: os << "EditSchedule"; break;
         case MenuOption::DisplayStops: os << "DisplayStops"; break;
         case MenuOption::DisplayWeeklyScheduleForDriver: os << "DisplayWeeklyScheduleForDriver"; break;
-        case MenuOption::AddDrive: os << "AddDrive"; break;
+        case MenuOption::AddDriver: os << "AddDriver"; break;
         case MenuOption::AddBus: os << "AddBus"; break;
         case MenuOption::DeleteBus: os << "DeleteBus"; break;
         case MenuOption::RecordTripData: os << "RecordTripData"; break;

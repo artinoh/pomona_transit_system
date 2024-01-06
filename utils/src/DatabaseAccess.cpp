@@ -1,8 +1,8 @@
 #include "../DatabaseAccess.h"
+#include <sstream>
 
-namespace db
+namespace transit::db
 {
-
     DatabaseAccess::DatabaseAccess()
     {
         if (initialized) return;
@@ -31,10 +31,9 @@ namespace db
 
         if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
             handleDiagnosticRecord(hDbc, SQL_HANDLE_DBC);
+            abort();
             return;
         }
-
-        std::cout << "Connection successful\n";
         initialized = true;
     }
 
@@ -66,34 +65,120 @@ namespace db
         if (hEnv) SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
     }
 
-    void DatabaseAccess::query()
+    void DatabaseAccess::displayQueryResults(SQLHSTMT hStmt)
     {
+        SQLRETURN retcode;
+        SQLSMALLINT columns;
+
+        // Get the number of columns in the result set
+        retcode = SQLNumResultCols(hStmt, &columns);
+        if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+            std::cerr << "Error in SQLNumResultCols" << std::endl;
+            return;
+        }
+
+        // Iterate through each column to get column names
+        for (SQLSMALLINT i = 1; i <= columns; i++) {
+            SQLCHAR columnName[128];
+            SQLSMALLINT columnNameLength;
+
+            retcode = SQLDescribeCol(hStmt, i, columnName, sizeof(columnName), &columnNameLength, NULL, NULL, NULL, NULL);
+            if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+                std::cerr << "Error in SQLDescribeCol" << std::endl;
+                return;
+            }
+
+            std::cout << columnName << "\t";
+        }
+        std::cout << std::endl;
+
+        // Fetch and display each row of the result set
+        while (SQLFetch(hStmt) == SQL_SUCCESS) {
+            for (SQLSMALLINT i = 1; i <= columns; i++) {
+                SQLCHAR columnData[256];
+                SQLLEN columnDataLength;
+
+                retcode = SQLGetData(hStmt, i, SQL_C_CHAR, columnData, sizeof(columnData), &columnDataLength);
+                if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+                    std::cerr << "Error in SQLGetData" << std::endl;
+                    return;
+                }
+
+                if (columnDataLength == SQL_NULL_DATA) {
+                    std::cout << "NULL\t";
+                } else {
+                    std::cout << columnData << "\t";
+                }
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    bool DatabaseAccess::addBus(types::BusId busId, const std::string& model, uint16_t year)
+    {
+        std::stringstream query;
+        query << "INSERT INTO dbo.Bus (BusId, Model, Year) VALUES (" << busId << ", '" << model << "', " << year << ")";
+
         // Allocate a statement handle
         SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+        retcode = SQLExecDirect(hStmt, (SQLCHAR*)query.str().c_str(), SQL_NTS);
 
-        // Execute the query
-        retcode = SQLExecDirect(hStmt, (SQLCHAR*)"SELECT * FROM dbo.Trip", SQL_NTS);
+        if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+            handleDiagnosticRecord(hStmt, SQL_HANDLE_STMT);
+            return false;
+        }
+        return true;
+    }
 
+    bool DatabaseAccess::addDriver(const std::string& name, const std::string& phoneNumber)
+    {
+        std::stringstream query;
+        query << "INSERT INTO dbo.Driver (Name, PhoneNumber) VALUES ('" << name << "', '" << phoneNumber << "')";
+
+        // Allocate a statement handle
+        SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+        retcode = SQLExecDirect(hStmt, (SQLCHAR*)query.str().c_str(), SQL_NTS);
+
+        if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+            handleDiagnosticRecord(hStmt, SQL_HANDLE_STMT);
+            return false;
+        }
+        return true;
+    }
+
+    void DatabaseAccess::displayTrips(const std::string& location, const std::string& destination, const std::string& date)
+    {
+
+        if (location.empty() || destination.empty() || date.empty())
+        {
+            std::cout << "Invalid input -- Could not display trips\n";
+            return;
+        }
+
+        std::stringstream query;
+        query   << "SELECT * FROM dbo.Trip T "
+                << " JOIN TripOffering TOF on T.TripNumber = TOF.TripNumber "
+                << " WHERE T.StartLocationName = '" << location << "'"
+                << " AND T.DestinationName = '" << destination << "'"
+                << " AND TOF.Date = '" << date << "'";
+
+        // Allocate a statement handle
+        SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+        retcode = SQLExecDirect(hStmt, (SQLCHAR*)query.str().c_str(), SQL_NTS);
 
         if (retcode == SQL_SUCCESS || retcode == SQL_SUCCESS_WITH_INFO)
         {
-            int trip_number;
-            char start_location[255] = { 0 };
-            char destination_name[255] = { 0 };
-            // Bind columns 1, 2, and 3
-            SQLBindCol(hStmt, 1, SQL_C_LONG, &trip_number, 0, NULL);
-            SQLBindCol(hStmt, 2, SQL_C_CHAR, &start_location, 255, NULL);
-            SQLBindCol(hStmt, 3, SQL_C_CHAR, &destination_name, 255, NULL);
-
-
-            while (SQLFetch(hStmt) == SQL_SUCCESS)
-            {
-                std::cout << "Trip number: " << trip_number << " Start location: " << start_location << " Destination name: " << destination_name << "\n";
-            }
+            displayQueryResults(hStmt);
         }
         else
         {
             handleDiagnosticRecord(hStmt, SQL_HANDLE_STMT);
         }
+
     }
+
+
+
+
+
 }

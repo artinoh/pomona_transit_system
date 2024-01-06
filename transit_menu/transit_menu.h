@@ -15,11 +15,14 @@ public:
 
 private:
 
-    void display_all_trips_for_location_destination_and_date();
+    void run();
+    void handle_menu_option(types::MenuOption user_input);
+
+    void display_trips();
     void edit_schedule();
     void display_stops();
     void display_weekly_schedule_for_driver();
-    void add_drive();
+    void add_driver();
     void add_bus();
     void delete_bus();
     void record_trip_data();

@@ -7,7 +7,7 @@
 #include <string>
 #include "types.h"
 
-namespace db
+namespace transit::db
 {
 class DatabaseAccess
 {
@@ -18,7 +18,10 @@ public:
         return instance;
     }
 
-    void query();
+    bool addBus(types::BusId busId, const std::string& model, uint16_t year);
+    bool addDriver(const std::string& name, const std::string& phoneNumber);
+
+    void displayTrips(const std::string& location, const std::string& destination, const std::string& date);
 
 private:
     DatabaseAccess();
@@ -27,6 +30,7 @@ private:
     DatabaseAccess& operator=(const DatabaseAccess&) = delete;
 
     void handleDiagnosticRecord(SQLHANDLE handle, SQLSMALLINT handleType);
+    void displayQueryResults(SQLHANDLE handle);
 
 
     SQLHENV hEnv;        // Environment handle

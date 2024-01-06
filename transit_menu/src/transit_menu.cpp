@@ -1,60 +1,87 @@
 #include "../transit_menu.h"
+#include <sstream>
+#include <optional>
 
 template<typename T>
-inline std::string get_input()
-{
-    std::string input;
-    std::getline(std::cin, input);
-    return static_cast<T>(input);
-}
+T get_input(std::optional<std::string> prompt = std::nullopt) {
+    std::string line;
+    T value;
 
+    if (prompt.has_value()) {
+        std::cout << prompt.value();
+    }
+
+    std::getline(std::cin, line);
+    if constexpr (std::is_same_v<T, std::string>) {
+        return line;
+    }
+    std::stringstream ss(line);
+    ss >> value;
+    if (ss.fail()) {
+        throw std::runtime_error("Invalid input format.");
+    }
+
+    return value;
+}
 
 namespace transit
 {
 TransitMenu::TransitMenu()
 {
-    std::cout << "Transit Menu constructor\n";
-    display_menu();
+    run();
+}
+
+void TransitMenu::run()
+{
+    types::MenuOption user_input = types::MenuOption::None;
+    while (user_input != types::MenuOption::Exit)
+    {
+        display_menu();
+        std::cout << "Please enter a selection: ";
+        user_input = static_cast<types::MenuOption>(get_input<int>());
+        handle_menu_option(user_input);
+    }
 }
 
 void TransitMenu::display_menu()
 {
-    //display all options in enum
-    //get user input
-    //call appropriate function
-    std::cout << "Displaying menu\n";
-    std::cout << "1. Display all trips for location, destination, and date\n";
-    std::cout << "2. Edit schedule\n";
-    std::cout << "3. Display stops\n";
-    std::cout << "4. Display weekly schedule for driver\n";
-    std::cout << "5. Add drive\n";
-    std::cout << "6. Add bus\n";
-    std::cout << "7. Delete bus\n";
-    std::cout << "8. Record trip data\n";
-    std::cout << "9. Exit\n";
-    std::cout << "Enter option: "; 
-
-    int user_input;
-    std::cin >> user_input;
-    types::MenuOption option = static_cast<types::MenuOption>(user_input);
-
-    std::cout << "You entered: " << option << "\n";
-    switch (option)
+    std::cout << "---------------------------------\n";
+    std::cout << "Welcome to the Transit Menu\n";
+    std::cout << "---------------------------------\n";
+    for (int i = 1; i <= static_cast<int>(types::MenuOption::Exit); i++)
     {
-    case types::MenuOption::DisplayAllTripsForLocationDestinationAndDate:
-        display_all_trips_for_location_destination_and_date();
-        break;
-    default:
-        std::cout << "Invalid option\n";
-        break;
+        std::cout << i << ": " << static_cast<types::MenuOption>(i) << "\n";
+    }
+    std::cout << "---------------------------------\n";
+}
+
+void TransitMenu::handle_menu_option(types::MenuOption user_input)
+{
+    switch (user_input)
+    {
+    case types::MenuOption::DisplayTrips: display_trips(); break;
+    case types::MenuOption::EditSchedule: edit_schedule(); break;
+    case types::MenuOption::DisplayStops: display_stops(); break;
+    case types::MenuOption::DisplayWeeklyScheduleForDriver: display_weekly_schedule_for_driver(); break;
+    case types::MenuOption::AddDriver: add_driver(); break;
+    case types::MenuOption::AddBus: add_bus(); break;
+    case types::MenuOption::DeleteBus: delete_bus(); break;
+    case types::MenuOption::RecordTripData: record_trip_data(); break;
+    case types::MenuOption::Exit: exit(); break;
+    default: std::cout << "Invalid option\n"; break;
     }
 }
 
 
-void TransitMenu::display_all_trips_for_location_destination_and_date()
+void TransitMenu::display_trips()
 {
-    std::cout << "Displaying all trips for location, destination, and date\n";
-    db::DatabaseAccess::instance().query();
+    std::cout << "You have chosen to display all trips for location, destination, and date\n";
+    std::string location = get_input<std::string>("Please enter the starting location: ");
+    std::string destination = get_input<std::string>("Please enter the destination: ");
+    std::string date = get_input<std::string>("Please enter the date: (YYYY-MM-DD)");
+
+    std::cout << "---------------------------------\n";
+    db::DatabaseAccess::instance().displayTrips(location, destination, date);
 }
 
 void TransitMenu::edit_schedule()
@@ -72,14 +99,37 @@ void TransitMenu::display_weekly_schedule_for_driver()
     std::cout << "Displaying weekly schedule for driver\n";
 }
 
-void TransitMenu::add_drive()
+void TransitMenu::add_driver()
 {
-    std::cout << "Adding drive\n";
+    std::cout << "You have chosen to add a driver\n";
+    std::string name = get_input<std::string>("Please enter the driver name: ");
+    std::string phone_number = get_input<std::string>("Please enter the driver phone number: ");
+
+    if (db::DatabaseAccess::instance().addDriver(name, phone_number))
+    {
+        std::cout << "Successfully added driver\n";
+    }
+    else
+    {
+        std::cout << "Failed to add driver\n";
+    }
 }
 
 void TransitMenu::add_bus()
 {
-    std::cout << "Adding bus\n";
+    std::cout << "You have chosen to add a bus\n";
+    types::BusId bus_id = get_input<types::BusId>("Please enter the bus id: ");
+    std::string model = get_input<std::string>("Please enter the bus model: ");
+    uint16_t year = get_input<uint16_t>("Please enter the bus year: ");
+
+    if (db::DatabaseAccess::instance().addBus(bus_id, model, year))
+    {
+        std::cout << "Successfully added bus\n";
+    }
+    else
+    {
+        std::cout << "Failed to add bus\n";
+    }
 }
 
 void TransitMenu::delete_bus()
@@ -94,7 +144,9 @@ void TransitMenu::record_trip_data()
 
 void TransitMenu::exit()
 {
-    std::cout << "Exiting\n";
+    std::cout << "---------------------------------\n";
+    std::cout << "Thanks for using the Transit Menu!\n";
+    std::cout << "---------------------------------\n";
 }
 
 

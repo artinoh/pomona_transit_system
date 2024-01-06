@@ -4,7 +4,7 @@
 int main()
 {
     //prime the database
-    db::DatabaseAccess::instance();
+    transit::db::DatabaseAccess::instance();
     transit::TransitMenu menu;
     return 0;
 }
