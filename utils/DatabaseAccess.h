@@ -106,7 +106,6 @@ namespace transit::db
         void getColumnInformation(SQLHSTMT hStmt, std::vector<std::string>& columnNames, std::vector<int>& columnWidths);
         void storeAndCalculateColumnWidths(SQLHSTMT hStmt, std::vector<int>& columnWidths, std::vector<std::vector<std::string>>& rowData);
         void printHeader(const std::vector<std::string>& columnNames, const std::vector<int>& columnWidths);
-        void printSeparator(const std::vector<int>& columnWidths);
         void printDataRows(const std::vector<std::vector<std::string>>& rowData, const std::vector<int>& columnWidths);
 
 

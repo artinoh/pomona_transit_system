@@ -104,10 +104,6 @@ namespace transit::db
             std::cout << std::left << std::setw(columnWidths[i] + 2) << columnNames[i] << "|";
         }
         std::cout << std::endl;
-    }
-
-    void DatabaseAccess::printSeparator(const std::vector<int>& columnWidths)
-    {
         for (size_t i = 0; i < columnWidths.size(); i++)
         {
             std::cout << std::string(columnWidths[i] + 2, '-') << "+";
@@ -170,7 +166,6 @@ namespace transit::db
         getColumnInformation(hStmt, columnNames, columnWidths);
         storeAndCalculateColumnWidths(hStmt, columnWidths, rowData);
         printHeader(columnNames, columnWidths);
-        printSeparator(columnWidths);
         printDataRows(rowData, columnWidths);
     }
 
