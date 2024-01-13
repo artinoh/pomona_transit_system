@@ -321,4 +321,33 @@ namespace transit::db
         }
     }
 
+    bool DatabaseAccess::recordTripData(types::TripNumber tripNumber,
+                                        const std::string& date,
+                                        int stop_number,
+                                        const std::string& start_time,
+                                        const std::string& arrival_time,
+                                        int number_passengers_in,
+                                        int number_passengers_out)
+    {
+        std::stringstream query;
+        query << "exec InsertActualTripStopInfo "   << tripNumber << ", '" 
+                                                    << date << "', "
+                                                    << stop_number << ", '" 
+                                                    << start_time << "', '" 
+                                                    << arrival_time << "', " 
+                                                    << number_passengers_in << ", " 
+                                                    << number_passengers_out;
+
+        // Allocate a statement handle
+        SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+        retcode = SQLExecDirect(hStmt, (SQLCHAR*)query.str().c_str(), SQL_NTS);
+
+        if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO)
+        {
+            handleDiagnosticRecord(hStmt, SQL_HANDLE_STMT);
+            return false;
+        }
+        return true;
+    }
+
 }

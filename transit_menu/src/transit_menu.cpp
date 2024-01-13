@@ -116,7 +116,7 @@ namespace transit
         case types::EditScheduleOption::AddTrip:
         {
             std::cout << "You have chosen to add a trip\n";
-            
+
             break;
         }
         case types::EditScheduleOption::ChangeDriver:
@@ -206,7 +206,23 @@ namespace transit
 
     void TransitMenu::record_trip_data()
     {
-        std::cout << "Recording trip data\n";
+        std::cout << "You have chosen to record trip data\n";
+        auto trip_number = get_input<types::TripNumber>("Please enter the trip number: ");
+        auto date = get_input<std::string>("Please enter the date: (YYYY-MM-DD)");
+        auto stop_number = get_input<int>("Please enter the stop number: ");
+        auto actual_start_time = get_input<std::string>("Please enter the actual start time: (HH:MM:SS)");
+        auto actual_arrival_time = get_input<std::string>("Please enter the actual arrival time: (HH:MM:SS)");
+        auto number_passengers_in = get_input<int>("Please enter the number of passengers in: ");
+        auto number_passengers_out = get_input<int>("Please enter the number of passengers out: ");
+
+        if (db::DatabaseAccess::instance().recordTripData(trip_number, date, stop_number, actual_start_time, actual_arrival_time, number_passengers_in, number_passengers_out))
+        {
+            std::cout << "Successfully recorded trip data\n";
+        }
+        else
+        {
+            std::cout << "Failed to record trip data\n";
+        }
     }
 
     void TransitMenu::exit()
