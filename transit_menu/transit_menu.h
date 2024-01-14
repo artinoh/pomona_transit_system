@@ -29,6 +29,7 @@ namespace transit
         void delete_bus();
         void record_trip_data();
         void exit();
+        types::TripOffering get_trip_offering_from_user();
 
     };
 }

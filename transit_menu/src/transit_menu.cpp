@@ -23,7 +23,8 @@ T get_input(std::optional<std::string> prompt = std::nullopt) {
     std::stringstream ss(line);
     ss >> value;
     if (ss.fail()) {
-        throw std::runtime_error("Invalid input format.");
+        std::cout << "Invalid input format.\n";
+        return value;
     }
 
     return value;
@@ -96,6 +97,16 @@ namespace transit
         db::DatabaseAccess::instance().displayTrips(location, destination, date);
     }
 
+    types::TripOffering TransitMenu::get_trip_offering_from_user()
+    {
+        types::TripOffering trip_offering;
+        std::cout << "Please enter the trip offering information\n";
+        trip_offering.tripNumber = static_cast<types::TripNumber>(get_input<int>("Please enter the trip number: "));
+        trip_offering.date = get_input<std::string>("Please enter the date: (YYYY-MM-DD)");
+        trip_offering.scheduledStartTime = get_input<std::string>("Please enter the scheduled start time: (HH:MM:SS)");
+        return trip_offering;
+    }
+
     void TransitMenu::edit_schedule()
     {
         std::cout << "You have chosen to edit the schedule\n";
@@ -106,39 +117,61 @@ namespace transit
         }
         std::cout << "---------------------------------\n";
         types::EditScheduleOption user_input = static_cast<types::EditScheduleOption>(get_input<int>("Please enter a selection: "));
+        std::cout << "You have chosen: " << user_input << "\n";
+        if (user_input >= types::EditScheduleOption::Exit)
+            return;
+        
+        bool transaction_successful = false;
+        types::TripOffering trip_offering = get_trip_offering_from_user();
         switch (user_input)
         {
         case types::EditScheduleOption::DeleteTrip:
         {
-            std::cout << "You have chosen to delete a trip\n";
+            transaction_successful = db::DatabaseAccess::instance().deleteTripOffering(trip_offering);
             break;
         }
         case types::EditScheduleOption::AddTrip:
         {
-            std::cout << "You have chosen to add a trip\n";
-
+            bool keep_adding = true;
+            while (keep_adding)
+            {
+                trip_offering.scheduledArrivalTime = get_input<std::string>("Please enter the scheduled arrival time: (HH:MM:SS)");
+                trip_offering.driverName = get_input<std::string>("Please enter the driver name: ");
+                trip_offering.busId = static_cast<types::BusId>(get_input<int>("Please enter the bus id: "));
+                transaction_successful = db::DatabaseAccess::instance().addTripOffering(trip_offering);
+                std::cout << "Transaction successful: " << (transaction_successful ? "true" : "false") << "\n";
+                char user_input = get_input<char>("Would you like to add another trip offering? (y/n): ");
+                keep_adding = user_input == 'y';
+                if (keep_adding) 
+                    trip_offering = get_trip_offering_from_user();
+            }
             break;
         }
         case types::EditScheduleOption::ChangeDriver:
         {
-            std::cout << "You have chosen to change the driver for a trip\n";
+            std::string driver_name = get_input<std::string>("Please enter the driver name: ");
+            transaction_successful = db::DatabaseAccess::instance().changeDriverForTripOffering(trip_offering, driver_name);
             break;
         }
         case types::EditScheduleOption::ChangeBus:
         {
-            std::cout << "You have chosen to change the bus for a trip\n";
+            types::BusId bus_id = static_cast<types::BusId>(get_input<int>("Please enter the bus id: "));
+            transaction_successful = db::DatabaseAccess::instance().changeBusForTripOffering(trip_offering, bus_id);
             break;
         }
         case types::EditScheduleOption::Exit:
-        {
-            std::cout << "You have chosen to exit the edit schedule menu\n";
-            break;
-        }
         default:
         {
-            std::cout << "Invalid option\n";
             break;
         }
+        }
+        if (transaction_successful)
+        {
+            std::cout << "Successfully updated trip offering\n";
+        }
+        else
+        {
+            std::cout << "Failed to update trip offering\n";
         }
     }
 

@@ -220,6 +220,92 @@ namespace transit::db
         return true;
     }
 
+    bool DatabaseAccess::deleteTripOffering(const types::TripOffering& tripOffering)
+    {
+        std::cout << "Deleteting trip offering: " << tripOffering << "\n";
+        std::stringstream query;
+
+        query << "DELETE FROM dbo.TripOffering WHERE TripNumber = " << tripOffering.tripNumber
+            << " AND Date = '" << tripOffering.date << "'"
+            << " AND ScheduledStartTime = '" << tripOffering.scheduledStartTime << "'";
+        
+        // Allocate a statement handle
+        SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+        retcode = SQLExecDirect(hStmt, (SQLCHAR*)query.str().c_str(), SQL_NTS);
+        
+        if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO)
+        {
+            handleDiagnosticRecord(hStmt, SQL_HANDLE_STMT);
+            return false;
+        }
+
+        return true;
+    }
+
+    bool DatabaseAccess::addTripOffering(const types::TripOffering& tripOffering)
+    {
+        std::cout << "Adding trip offering: " << tripOffering << "\n";
+        std::stringstream query;
+        query << "INSERT INTO dbo.TripOffering (TripNumber, Date, ScheduledStartTime, ScheduledArrivalTime, DriverName, BusId) VALUES ("
+            << tripOffering.tripNumber << ", '"
+            << tripOffering.date << "', '"
+            << tripOffering.scheduledStartTime << "', '"
+            << tripOffering.scheduledArrivalTime << "', '"
+            << tripOffering.driverName << "', "
+            << tripOffering.busId << ")";
+
+        // Allocate a statement handle
+        SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+        retcode = SQLExecDirect(hStmt, (SQLCHAR*)query.str().c_str(), SQL_NTS);
+
+        if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO)
+        {
+            handleDiagnosticRecord(hStmt, SQL_HANDLE_STMT);
+            return false;
+        }
+        return true;
+    }
+
+    bool DatabaseAccess::changeDriverForTripOffering(const types::TripOffering& tripOffering, const std::string& driverName)
+    {
+        std::cout << "Changing driver for trip offering: " << tripOffering << " to " << driverName << "\n";
+        std::stringstream query;
+        query << "UPDATE dbo.TripOffering SET DriverName = '" << driverName << "' WHERE TripNumber = " << tripOffering.tripNumber
+            << " AND Date = '" << tripOffering.date << "'"
+            << " AND ScheduledStartTime = '" << tripOffering.scheduledStartTime << "'";
+
+        // Allocate a statement handle
+        SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+        retcode = SQLExecDirect(hStmt, (SQLCHAR*)query.str().c_str(), SQL_NTS);
+
+        if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO)
+        {
+            handleDiagnosticRecord(hStmt, SQL_HANDLE_STMT);
+            return false;
+        }
+        return true;
+    }
+
+    bool DatabaseAccess::changeBusForTripOffering(const types::TripOffering& tripOffering, types::BusId busId)
+    {
+        std::cout << "Changing bus for trip offering: " << tripOffering << " to " << busId << "\n";
+        std::stringstream query;
+        query << "UPDATE dbo.TripOffering SET BusId = " << busId << " WHERE TripNumber = " << tripOffering.tripNumber
+            << " AND Date = '" << tripOffering.date << "'"
+            << " AND ScheduledStartTime = '" << tripOffering.scheduledStartTime << "'";
+
+        // Allocate a statement handle
+        SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+        retcode = SQLExecDirect(hStmt, (SQLCHAR*)query.str().c_str(), SQL_NTS);
+
+        if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO)
+        {
+            handleDiagnosticRecord(hStmt, SQL_HANDLE_STMT);
+            return false;
+        }
+        return true;
+    }
+
     void DatabaseAccess::displayTrips(const std::string& location, const std::string& destination, const std::string& date)
     {
 

@@ -106,6 +106,37 @@ namespace transit::types
         }
         return os;
     }
+
+struct TripOffering
+{
+    TripNumber tripNumber;
+    std::string date;
+    std::string scheduledStartTime;
+    std::string scheduledArrivalTime;
+    std::string driverName;
+    BusId busId;
+};
+
+inline std::ostream &operator<<(std::ostream &os, const TripOffering &tripOffering)
+{
+    os << "TripOffering: (";
+    os << "TripNumber: " << tripOffering.tripNumber << " ";
+    os << "Date: " << tripOffering.date << " ";
+    os << "ScheduledStartTime: " << tripOffering.scheduledStartTime << ")";
+    if (!tripOffering.scheduledArrivalTime.empty())
+    {
+        os << "ScheduledArrivalTime: " << tripOffering.scheduledArrivalTime << " ";
+    }
+    if (!tripOffering.driverName.empty())
+    {
+        os << "DriverName: " << tripOffering.driverName << " ";
+    }
+    if (tripOffering.busId != 0)
+    {
+        os << "BusId: " << tripOffering.busId << " ";
+    }
+    return os;
+}
 }
 
 namespace transit::db
@@ -130,6 +161,10 @@ namespace transit::db
                             int number_passengers_in,
                             int number_passengers_out);
 
+        bool deleteTripOffering(const types::TripOffering& tripOffering);
+        bool addTripOffering(const types::TripOffering& tripOffering);
+        bool changeDriverForTripOffering(const types::TripOffering& tripOffering, const std::string& driverName);
+        bool changeBusForTripOffering(const types::TripOffering& tripOffering, types::BusId busId);
         void displayBuses();
         void displayTrips(const std::string &location, const std::string &destination, const std::string &date);
         void displayWeeklyScheduleForDriver(const std::string &driverName, const std::string &date);
