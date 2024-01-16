@@ -31,5 +31,10 @@ namespace transit
         void exit();
         types::TripOffering get_trip_offering_from_user();
 
+
+        void sortBusses();
+
+
+
     };
 }

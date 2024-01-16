@@ -206,7 +206,7 @@ namespace transit::db
     bool DatabaseAccess::addDriver(const std::string& name, const std::string& phoneNumber)
     {
         std::stringstream query;
-        query << "INSERT INTO dbo.Driver (Name, PhoneNumber) VALUES ('" << name << "', '" << phoneNumber << "')";
+        query << "INSERT INTO dbo.Driver (DriverName, DriverTelephoneNumber) VALUES ('" << name << "', '" << phoneNumber << "')";
 
         // Allocate a statement handle
         SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
@@ -308,7 +308,7 @@ namespace transit::db
 
     void DatabaseAccess::displayTrips(const std::string& location, const std::string& destination, const std::string& date)
     {
-
+  
         if (location.empty() || destination.empty() || date.empty())
         {
             std::cout << "Invalid input -- Could not display trips\n";
